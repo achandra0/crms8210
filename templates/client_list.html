@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Clientss{% endblock title %}
+
+{% block content %}
+<!--<div class="card-columns">-->
+  {% for client in object_list %}
+  <div class="card">
+    <div class="card-header">
+      <h5>{{ client.name }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Account# {{ client.acct_number }}</h6>
+    </div>
+    <div class="card-body">
+      <address>
+        {{ client.address }}<br>
+        {{ client.city }}<br>
+        {{ client.state }} - {{ client.zipcode }}
+      </address>
+      <a href="mailto:#">{{ client.email }}</a> | <abbr title="Phone">P:</abbr> {{ client.cell_phone }}
+      <p>{{ client.notes }}</p>
+      <a class="btn btn-info" href="{% url 'client_edit' client.pk %}">Edit</a>
+      <a class="btn btn-danger" href="{% url 'client_delete' client.pk %}">Delete</a>
+    </div>
+    <div class="card-footer">
+        {% for comment in client.comments.all %}
+          <p>
+            <span class="font-weight-bold">{{ comment.author }} &middot;</span>
+            {{ comment }}
+          </p>
+        {% endfor %}
+    </div>
+  </div>
+  <br>
+
+<!--    <div class="card">-->
+<!--      <div class="card-header">-->
+<!--        <span class="font-weight-bold">{{ client.name }}</span>-->
+<!--        <span class="font-weight-bold">cell: {{ client.cell_phone }} | </span>-->
+<!--        <span class="font-weight-bold">acct: {{ client.acct_number }} | </span>-->
+
+<!--        <span class="font-muted">addr: {{ client.address }} | </span>-->
+<!--        <span class="font-muted-">city: {{ client.city }} | </span>-->
+<!--        <span class="font-muted">st: {{ client.state }} | </span>-->
+<!--        <span class="font-muted">zip: {{ client.zipcode }} | </span>-->
+<!--        <span class="font-muted">email: {{ client.email }} | </span>-->
+<!--      </div>-->
+<!--      <div class="card-body">-->
+<!--        <p>{{ client.notes }}</p>-->
+<!--        <a href="{% url 'client_edit' client.pk %}">Edit</a> |-->
+<!--        <a href="{% url 'client_delete' client.pk %}">Delete</a>-->
+<!--      </div>-->
+<!--      <div class="card-footer">-->
+<!--        {% for comment in client.comments.all %}-->
+<!--          <p>-->
+<!--            <span class="font-weight-bold">{{ comment.author }} &middot;</span>-->
+<!--            {{ comment }}-->
+<!--          </p>-->
+<!--        {% endfor %}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <br />-->
+  {% endfor %}
+{% endblock content %}
